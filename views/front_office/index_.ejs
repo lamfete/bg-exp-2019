@@ -1,0 +1,687 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>
+	<% if(isLoggedIn==="notLoggedIn") { %> Belum Login <% } else { %>Selamat Datang<% } %>
+</title>
+
+<!-- Load JS -->
+<script type="text/javascript" src="../js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="../js/bootstrap.js"></script>
+
+<!-- Load CSS -->
+<link rel="stylesheet" href="../css/bootstrap.css"/>
+<link rel="stylesheet" href="../css/bootstrap-theme.css"/>
+<link rel="stylesheet" href="../css/custom.css"/>
+
+</head>
+
+<body>
+<!--  HEADER --------------------------------------------------------------------------------------------------------------->
+	<div class="fluid-container">
+
+		<!-- HEADER  ------------------------------------------------->
+
+		<div class="container" style="padding:10px 10px 10px 10px;">
+			<div class="col-sm-3">
+				<img src="../img/logo_icon/logo_bakoelgame.jpg" width="80%"/>
+			</div>
+			<div class="col-sm-3">
+				<div class="input-group" style="margin-top:10px;">
+				  <input type="text" class="form-control" placeholder="Search" style="background-color:#ddd;">
+				  <span class="input-group-addon" id="" style="background-color:#888; color:#fff;"><i class="glyphicon glyphicon-search" style="font-size:16px;"></i></span>
+				</div>
+			</div>
+			<div class="col-sm-2" style="margin-top:14px;" rel="popover" data-popover-content="#Notif" data-placement="bottom" tabindex="0" data-trigger="click" data-delay="500">
+				<i class="glyphicon glyphicon-bell" style="float:left; margin-right:10px; font-size:25px; color:#bbb;"></i>
+				<span class="font-header">NOTIFIKASI</span>
+			</div>
+			
+			<% if(isLoggedIn==="loggedIn") { %> 
+			<div class="col-sm-2" style="margin-top:12px;" rel="popover" data-popover-content="#Login" data-placement="bottom" tabindex="0" data-trigger="click" data-delay="500">
+				<i class="glyphicon glyphicon-user" style="float:left; margin-right:10px; font-size:27px; color:#bbb;"></i>
+				<div class="font-header" style="float:left; font-size:14px; font-weight:bold;">
+					<div style="margin-top:-5px;"><%= username %> </div>
+					<div style="margin-top:-5px;">MY ACCOUNT </div>
+				</div>
+			</div>
+			<% } else { %>
+			<div class="col-sm-2" style="margin-top:12px;" rel="popover" data-popover-content="#FormLogin" data-placement="bottom" tabindex="0" data-trigger="click" data-delay="500">
+				<i class="glyphicon glyphicon-user" style="float:left; margin-right:10px; font-size:27px; color:#bbb;"></i>
+				<div class="font-header" style="float:left; font-size:14px; font-weight:bold;">
+					<div style="margin-top:-5px;"><%= username %> </div>
+					<div style="margin-top:-5px;">REGISTER | SIGN IN </div>
+				</div>
+			</div>
+			<% } %>
+
+				
+
+			<div class="col-sm-2" style="margin-top:14px;" rel="popover" data-popover-content="#Cart" data-placement="bottom" tabindex="0" data-trigger="click" data-delay="500">
+				<i class="glyphicon glyphicon-shopping-cart" style="float:left; margin-right:10px; font-size:23px; color:#bbb;"></i>
+				<span class="font-header">CART</span>
+			</div>
+		</div>
+		
+		<!-- TOOLTIPS ACCOUNT  -->
+
+		<div id="Login" class="hide" style="width:130px;">
+			<ul class="nav" style="font-family: Franklin Gothic Medium Cond;">
+				<li><a href="/profile">PROFILE</a></li>
+				<li><a href="history_cart.html">HISTORI BELANJA</a></li>
+				<li><a href="pending_product.html">PENDING PRODUCT</a></li>
+				<li><a href="/signout" style="text-align:right; color:#f00;">SIGN OUT</a></li>
+			</ul>
+		</div>
+
+		<!-- END OF TOOLTIPS ACCOUNT  -->
+
+		<!-- TOOLTIPS FORM LOGIN  -->
+
+		<div id="FormLogin" class="hide" style="width:240px;">
+			<form action="login" method="POST">
+			<div class="input-group">
+			  <input type="text" class="form-control" name="username" placeholder="Username" aria-describedby="basic-addon2">
+			  <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-user"></i></span>
+			</div>
+			<div class="input-group" style="margin-top:10px;">
+			  <input type="password" class="form-control" name="password" placeholder="Password" aria-describedby="basic-addon2">
+			  <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-lock"></i></span>
+			</div>
+			<div style="margin-top:10px;">Forgot Password? <a href=""> Click Here </a></div>
+			<div style="margin-top:10px;">Don't have an account? <a href="/register"> Sign up here </a></div>
+			<button type="submit" class="button_login" style="margin-top:10px;">LOGIN</button>
+			</form>
+		</div>
+
+		<!-- END OF TOOLTIPS FORM LOGIN  -->
+
+		<!-- TOOLTIPS CART  -->
+		<div id="Cart" class="hide" style="width:300px; font-family:Franklin Gothic Medium Cond; font-size:13px;">
+
+			<table class="table">
+				<tr style="background-color:#eee; padding:5px;">
+					<td colspan="4" >
+						<span>Total: <strong>2 items </strong></span>
+						<div style="float:right;"><a href="history_cart.html"><i class="glyphicon glyphicon-shopping-cart" style="margin-right:10px; color:#666;"></i>Lihat Cart</a></div>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="../img/cart/mini_cart1.jpg" height="30"/></td>
+					<td>
+						<strong> Nama Game </strong> <br/>
+						<span> Jenis Game </span> <br/>
+						<span> Nama Toko </span>
+					</td>
+					<td>IDR 30.000 x 2</td>
+					<td><div style="width:30px; height:30px; border-radius:15px; background-color:#f00; padding:5px; color:#fff; text-align:center;"><i class="glyphicon glyphicon-remove" style="line-height:1.5;"></i></div></td>
+				</tr>
+				<tr>
+					<td><img src="../img/cart/mini_cart1.jpg" height="30"/></td>
+					<td>
+						<strong> Nama Game 2 </strong> <br/>
+						<span> Jenis Game 2 </span> <br/>
+						<span> Nama Toko 2 </span>
+					</td>
+					<td>IDR 60.000 x 2</td>
+					<td><div style="width:30px; height:30px; border-radius:15px; background-color:#f00; padding:5px; color:#fff; text-align:center;"><i class="glyphicon glyphicon-remove" style="line-height:1.5;"></i></div></td>
+				</tr>
+
+				<tr colspan="4" style="padding:5px; font-size:16px;">
+					<td colspan="4" >
+						<span>Total: <strong>IDR 800,000 </strong></span>
+						<div style="float:right;"><a href="detail_payment.html"><button class="button_login">Lanjut ke Pembayaran</button></a></div>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<!-- END OF TOOLTIPS CART  -->
+
+		<!-- TOOLTIPS NOTIF  -->
+		<div id="Notif" class="hide" style="width:200px; font-family:Franklin Gothic Medium Cond; font-size:13px;">
+
+			<table class="table">
+				<tr>
+					<td>10 Min	</td>
+					<td>Pengiriman SMPVT telah sampai dsgdfsgfdg</td>
+				</tr>
+				<tr>
+					<td>1 day	</td>
+					<td>Phriya Shop membalas pesanmu</td>
+				</tr>
+				<tr>
+					<td>2 May	</td>
+					<td>Sign Up berhasil</td>
+				</tr>
+
+				<tr>
+					<td colspan="2" >
+						<div style="float:right; width:100%;"><a href="notifikasi.html"><button class="button_login">Lihat Semua</button></a></div>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<!-- END OF TOOLTIPS NOTIF  -->
+
+<!--  END OF HEADER -------------------------------------------------------------------------------------------------------------->
+
+<!--  CONTENT -------------------------------------------------------------------------------------------------------------->
+
+		<!-- MENU  ------------------------------------------------->
+
+		<div class="container-fluid" style="background-color:#ffc422; margin-top:50px;">
+		  <div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<!--div class="navbar-header col-sm-3" style="text-align:center;">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+			  </button-->
+
+				<div class="col-sm-3">
+				  <div class="dropdown open">
+				    <div class="dropdown-toggle" data-toggle="dropdown" style="background-color:#666; color:#fff; text-align:center; padding:10px; font-size:17px; margin-top:-45px;"> Category <span class="caret"></span></div>
+					<ul class="nav dropdown" style="background-color:#333; color:#fff;">
+						<li ><a href="#" class="menu"><img src="../img/logo_icon/stick.png" height="18"/> &nbsp; All Games</a></li>
+						<% listJenisProduk.forEach(function(jenisProduk) { %>
+							<li><a href='<%= jenisProduk.link %>' class="menu"><img src="../img/logo_icon/<%= jenisProduk.img %>" height="18"/> &nbsp; <%= jenisProduk.nama_jenis_produk %></a></li>
+						<% }); %>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
+							
+						<!-- <li><a href="catalog_game_voucher.html" class="menu"><img src="../img/logo_icon/voucher.png" height="18"/> &nbsp; Game Voucher</a></li>
+						<li><a href="catalog_game_account_all.html" class="menu"><img src="../img/logo_icon/user.png" height="18"/> &nbsp; Game Account</a></li>
+						<li><a href="catalog_iap.html" class="menu"><img src="../img/logo_icon/diamond.png" height="18"/> &nbsp; In App Purchase</a></li>
+						<li><a href="catalog_game_service.html" class="menu"><img src="../img/logo_icon/lv.png" height="18"/> &nbsp; In Game Services</a></li>
+						<li><a href="catalog_ingame_item.html" class="menu"><img src="../img/logo_icon/sword.png" height="18"/> &nbsp; In Game Items</a></li>
+						<li><a href="catalog_cdkey.html" class="menu"><img src="../img/logo_icon/key.png" height="18"/> &nbsp; CD Keys</a></li>
+						<li><a href="catalog_game_currency.html" class="menu"><img src="../img/logo_icon/curr.png" height="18"/> &nbsp; In Game Currencies</a></li>
+						<li><a href="#" class="menu"><img src="../img/logo_icon/tool.png" height="18"/> &nbsp; Gaming Equipments</a></li>
+						<li><a href="catalog_figure.html" class="menu"><img src="../img/logo_icon/figure.png" height="18"/> &nbsp; Figures</a></li>
+						<li><a href="catalog_model_kits.html" class="menu"><img src="../img/logo_icon/model.png" height="18"/> &nbsp; Model Kits</a></li>
+						<li><a href="auction_all.html" class="menu"><img src="../img/logo_icon/auction.png" height="18"/> &nbsp; Auction</a></li> -->
+				    </ul>
+				  </div>
+				</div>
+
+
+			<div class="col-sm-9" style="margin-top:-45px; padding:0px;">
+			  <ul class="nav navbar-nav" >
+					<li><a href="#" class="menu_white">How to buy <span class="sr-only">(current)</span></a></li>
+					<li><a href="#" class="menu_white">Help</a></li>
+					<li><a href="#" class="menu_white">Contact Us</a></li>
+			  </ul>
+
+			  <ul class="nav navbar-nav navbar-right">
+				<li><a href="#" class="menu_white" style="font-size:15px;">Bahasa / English</a></li>
+			  </ul>
+
+			  <!-- SLIDESHOW ----------------------------------------------------------------------------------------->
+
+			  <div id="slideshow" class="carousel slide" data-ride="carousel" style="margin-top:60px; height:345px; margin-bottom:10px;">
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators">
+					<li data-target="#slideshow" data-slide-to="0" class="active"></li>
+					<li data-target="#slideshow" data-slide-to="1"></li>
+					<li data-target="#slideshow" data-slide-to="2"></li>
+				  </ol>
+
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner" role="listbox">
+						<div class="item active">
+						  <img src="../img/slideshow/1.jpg" />
+						</div>
+						<div class="item">
+						  <img src="../img/slideshow/2.jpg" />
+						</div>
+				  </div>
+
+				  <!-- Controls -->
+				  <a class="left carousel-control" href="#slideshow" role="button" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				  </a>
+				  <a class="right carousel-control" href="#slideshow" role="button" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				  </a>
+				</div>
+
+
+			</div>
+
+			<!-- END OF SLIDESHOW --------------------------------------------------------------------------------->
+
+			<div class="container" style="margin-top:20px;">
+				<div class="col-sm-4 col-xs-12" style="padding:0px;">
+					<img src="../img/slideshow/3.jpg" style="background:100% 100%;"/>
+				</div>
+				<div class="col-sm-4 col-xs-12" style="padding:0px;">
+					<img src="../img/slideshow/4.jpg" style="background:100% 100%;"/>
+				</div>
+				<div class="col-sm-4 col-xs-12" style="padding:0px;">
+					<img src="../img/slideshow/5.jpg" style="background:100% 100%;"/>
+				</div>
+			</div>
+
+
+		  </div><!-- /.container-fluid -->
+		</div>
+
+
+	
+
+
+
+
+		<!-- MOST POPULAR ---------------------------->
+
+		<div class="container" style="margin-bottom: 20px;">
+			<div class="col-xs-12 grid_title" style="border-bottom: 1px solid #f00; margin-bottom:10px; margin-top:20px;">
+				Most Popular This Week
+			</div>
+
+			<div class="col-sm-3 col-xs-12">
+				<img src="../img/slideshow/game/a.jpg"/ width="100%">
+			</div>
+			<div class="col-sm-9 col-xs-12">
+					<div id="slideshow_game_1" class="carousel slide" data-ride="carousel">
+						<!-- Indicators -->
+						<ol class="carousel-indicators">
+								<li data-target="#slideshow_game_1" data-slide-to="0" class="active"></li>
+								<li data-target="#slideshow_game_1" data-slide-to="1"></li>
+								<li data-target="#slideshow_game_1" data-slide-to="2"></li>
+						</ol>
+
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner" role="listbox" >
+							<div class="item active">
+								<div class="col-sm-4 col-xs-6 grid">
+									<img src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-sm-4 col-xs-6 grid">
+									<img src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+								<div class="col-sm-4 col-xs-6 grid">
+									<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+									<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+									<h5>SubTitle</h5>
+								</div>
+							</div>
+						</div>
+
+						<!-- Controls -->
+						<a class="left carousel-control" href="#slideshow_game_1" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+						</a>
+						<a class="right carousel-control" href="#slideshow_game_1" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- END OF MOST POPULAR ---------------------------->
+
+			<!-- GAME VOUCHER ---------------------------->
+
+			<div class="container" style="margin-bottom: 20px;">
+				<div class="col-xs-12 grid_title" style="border-bottom: 1px solid #f00; margin-bottom:10px; margin-top:20px;">
+					Game Voucher
+					<span style="float:right; font-size:16px;">Lihat Semua</span>
+				</div>
+
+				<div class="col-sm-3 col-xs-12">
+					<img src="../img/slideshow/game/b.jpg"/ width="100%">
+				</div>
+				<div class="col-sm-9 col-xs-12">
+						<div id="slideshow_game_1" class="carousel slide" data-ride="carousel">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
+							<li data-target="#slideshow_game_1" data-slide-to="0" class="active"></li>
+							<li data-target="#slideshow_game_1" data-slide-to="1"></li>
+							<li data-target="#slideshow_game_1" data-slide-to="2"></li>
+							</ol>
+
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner" role="listbox" >
+								<div class="item active">
+									<% for(var i=0; i<6; i++) { %>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img src="../img/logo_icon/kategori_produk/<%= listKatProduk[i].img_kategori_produk %>" width="70%"/>
+											<h4><%= listKatProduk[i].nama_kategori_produk %></h4>
+											<h5><%= listKatProduk[i].informasi_produk %></h5>
+										</div>
+									<% }; %>
+								</div>
+								<div class="item">
+									<div class="item active">
+										<% for(var i=6; i<12; i++) { %>
+											<div class="col-sm-4 col-xs-6 grid">
+												<img src="../img/logo_icon/kategori_produk/<%= listKatProduk[i].img_kategori_produk %>" width="70%"/>
+												<h4><%= listKatProduk[i].nama_kategori_produk %></h4>
+												<h5><%= listKatProduk[i].informasi_produk %></h5>
+											</div>
+										<% }; %>
+									</div>
+								</div>
+							</div>
+
+							<!-- Controls -->
+							<a class="left carousel-control" href="#slideshow_game_1" role="button" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control" href="#slideshow_game_1" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- END OF GAME VOUCHER ---------------------------->
+
+				<!-- GAME ACCOUNT ---------------------------->
+
+				<div class="container" style="margin-bottom: 20px;">
+					<div class="col-xs-12 grid_title" style="border-bottom: 1px solid #f00; margin-bottom:10px; margin-top:20px;">
+						Game Account
+						<span class="sub_menu">Lihat Semua</span>
+						<span class="sub_menu">Web Game</span>
+						<span class="sub_menu">PC Game</span>
+						<span class="sub_menu">Mobile Game</span>
+						<span class="sub_menu">Terpopuler</span>
+					</div>
+
+					<div class="col-sm-3 col-xs-12">
+						<img src="../img/slideshow/game/c.jpg"/ width="100%">
+					</div>
+					<div class="col-sm-9 col-xs-12">
+							<div id="slideshow_game_1" class="carousel slide" data-ride="carousel">
+								<!-- Indicators -->
+								<ol class="carousel-indicators">
+								<li data-target="#slideshow_game_1" data-slide-to="0" class="active"></li>
+								<li data-target="#slideshow_game_1" data-slide-to="1"></li>
+								<li data-target="#slideshow_game_1" data-slide-to="2"></li>
+								</ol>
+
+								<!-- Wrapper for slides -->
+								<div class="carousel-inner" role="listbox" >
+									<div class="item active">
+										<div class="col-sm-4 col-xs-6 grid">
+											<img src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/1.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+									</div>
+									<div class="item">
+										<div class="col-sm-4 col-xs-6 grid">
+											<img src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+										<div class="col-sm-4 col-xs-6 grid">
+											<img  src="../img/slideshow/game/in_app_purchase/2.png" width="70%"/>
+											<h4>Nama Game Nama Game Nama Game Nama Game</h4>
+											<h5>SubTitle</h5>
+										</div>
+									</div>
+								</div>
+
+								<!-- Controls -->
+								<a class="left carousel-control" href="#slideshow_game_1" role="button" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+								</a>
+								<a class="right carousel-control" href="#slideshow_game_1" role="button" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+								</a>
+							</div> <!-- end of carousel -->
+						</div> <!-- end of col-sm-9 -->
+						
+						<div class="col-sm-12 grid_title" style="border-bottom: 1px solid #f00; margin-bottom:10px; margin-top:20px;">
+							News & Promotions
+						</div>
+						
+						<div class="col-sm-3" style="margin-top:-13px;">
+							<h3>Judul News & Promo</h3>
+							<img src="../img/slideshow/2.jpg" width="100%"/>
+							<h5>
+								Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet 
+							</h5>
+							<h4 class="yellow_font">Read more...</h4>
+						</div>
+						
+						<div class="col-sm-3" style="margin-top:-13px;">
+							<h3>Judul News & Promo</h3>
+							<img src="../img/slideshow/2.jpg" width="100%"/>
+							<h5>
+								Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet 
+							</h5>
+							<h4 class="yellow_font">Read more...</h4>
+						</div>
+						
+						<div class="col-sm-3" style="margin-top:-13px;">
+							<h3>Judul News & Promo</h3>
+							<img src="../img/slideshow/2.jpg" width="100%"/>
+							<h5>
+								Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet 
+							</h5>
+							<h4 class="yellow_font">Read more...</h4>
+						</div>
+						
+						<div class="col-sm-3" style="margin-top:-13px;">
+							<h3>Judul News & Promo</h3>
+							<img src="../img/slideshow/2.jpg" width="100%"/>
+							<h5>
+								Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet 
+							</h5>
+							<h4 class="yellow_font">Read more...</h4>
+						</div>
+						
+						
+					</div> <!-- end of div container -->
+					
+					
+
+					<!-- END OF GAME ACCOUNT ---------------------------->
+
+<!--  END OF CONTENT -------------------------------------------------------------------------------------------------------------->
+
+<!--  FOOTER --------------------------------------------------------------------------------------------------------------->
+	<div class="fluid-container" style="padding-top:20px; border-top:2px solid #eee;">
+		<div class="container">
+			<div class="col-sm-3 col-xs-12">
+				<p class="footer_title">Panduan</p>
+				<div style="margin-left:20px; margin-top:10px;">
+					<p><a href="#">Tentang Kami</a></p>
+					<p><a href="#">Syarat & Ketentuan</a></p>
+					<p><a href="#">Cara Pembelian & Pembayaran</a></p>
+					<p><a href="#">Cara Penjualan</a></p>
+					<p><a href="#">Pengiriman</a></p>
+					<p><a href="#">Privacy & Policy</a></p>
+					<p><a href="#">Hubungi Kami</a></p>
+					<p><a href="#">Help</a></p>
+				</div>
+			</div>
+
+			<div class="col-sm-3 col-xs-12">
+				<p class="footer_title">Sosial Media</p>
+				<div style="margin-top:10px;">
+					<a href="#" style="float:left;"><img src="../img/social_media/fb.png" height="35"/></a>
+					<a href="#" style="float:left; margin-left:3px;"><img src="../img/social_media/twitter.png" height="35"/></a>
+					<a href="#" style="float:left; margin-left:3px;"><img src="../img/social_media/instagram.png" height="35"/></a>
+					<a href="#" style="float:left; margin-left:3px;"><img src="../img/social_media/google.png" height="35"/></a>
+				</div>
+			</div>
+
+			<div class="col-sm-3 col-xs-123">
+				<p class="footer_title">Metode Pembayaran</p>
+				<div style="margin-top:10px;">
+					<a href="#" style="float:left;"><img src="../img/bank_provider/bni.png" height="18"/></a>
+					<a href="#" style="float:left; margin-left:10px;"><img src="../img/bank_provider/bca.png" height="18"/></a>
+					<a href="#" style="float:left; margin-left:10px;"><img src="../img/bank_provider/bri.png" height="18"/></a>
+					<br/><br/>
+					<a href="#" style="float:left;"><img src="../img/bank_provider/mandiri.png" height="18"/></a>
+					<a href="#" style="float:left; margin-left:10px; margin-top:4px;"><img src="../img/bank_provider/niaga.png" height="12"/></a>
+					<a href="#" style="float:left; margin-left:10px;"><img src="../img/bank_provider/telkomsel.png" height="18"/></a>
+					<br/><br/>
+					<a href="#" style="float:left;"><img src="../img/bank_provider/xl.png" height="30"/></a>
+					<a href="#" style="float:left; margin-left:10px;"><img src="../img/bank_provider/im3.png" height="30"/></a>
+				</div>
+			</div>
+
+			<div class="col-sm-3 col-xs-12">
+				<p class="footer_title">Jasa Pengiriman</p>
+				<div style="margin-top:10px;">
+					<a href="#" style="float:left;"><img src="../img/exp/tiki.png" height="20"/></a>
+					<a href="#" style="float:left; margin-left:10px;"><img src="../img/exp/jne.png" height="20"/></a>
+					<br/><br/>
+					<a href="#" style="float:left;"><img src="../img/exp/jnt.png" height="17"/></a>
+				</div>
+			</div>
+
+			<div class="col-xs-12" style="border-top:1px solid #ddd; margin:10px 0 10px 0; padding-top:10px; text-align:center;">
+				<p> &copy; 2017 Bakoelgame </p>
+			</div>
+		</div>
+	</div>
+
+<!--  END OF FOOTER --------------------------------------------------------------------------------------------------------------->
+
+<script type="text/javascript">
+
+	$(function () {
+		$('[rel="popover"]').popover({
+			container: 'body',
+			html : true,
+			content: function() {
+				var clone = $($(this).data('popover-content')).clone(true).removeClass('hide');
+			return clone;
+			}
+    }).click(function(e) {
+        e.preventDefault();
+		});
+	})
+</script>
+
+</body>
+</html>
